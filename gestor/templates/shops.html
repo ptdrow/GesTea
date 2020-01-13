@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+   <table id="tabla">
+      <tr>
+         <th>Nombre</th>
+         <th>Barrio</th>
+         <th>Dirección</th>
+         <th>Contactos</th>
+      </tr>
+      {% for shop in shops %}
+         <tr>
+            <td>{{ shop.nombre }}</td>
+            <td>{{ shop.barrio }}</td>
+            <td>{{ shop.direccion }}</td>
+            <td>
+               {% for contacto in shop.contactos.all %}
+                  {{ contacto|linebreaks }}
+               {% endfor %}
+            </td>
+         </tr>
+      {% endfor %}
+   </table>
+{% endblock %}
