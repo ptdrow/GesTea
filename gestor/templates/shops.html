@@ -14,7 +14,7 @@
             <td>{{ shop.direccion }}</td>
             <td>
                {% for contacto in shop.contactos.all %}
-                  {{ contacto|linebreaks }}
+                  <a href="{% url 'contact_details' pk=contacto.pk %}">{{ contacto|linebreaks }}</a>
                {% endfor %}
             </td>
          </tr>
