@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Cliente, Coleccion, Contacto, Pedido, Producto, Items_Pedidos
+from .models import Cliente, Coleccion, Contacto, Pedido, Presentacion, Producto, Items_Pedidos
 from django.http import HttpResponse
 from .forms import PedidosForm
 from decimal import Decimal
@@ -28,16 +28,12 @@ def pedidos_list(request):
    pedidos = Pedido.objects.all().order_by('id').reverse()
    return render(request, 'pedidos_list.html', {'pedidos': pedidos})
 
-def pedido_nuevo(request):
-   return render(request, 'pedido_nuevo.html', {})
-
 def crear_pedido(request, pk):
    shop = get_object_or_404(Cliente, pk=pk)
    
    if request.method=="GET":
       pedido = Pedido(cliente=Cliente.objects.get(pk=pk))
       pedido.save()
-      print(pedido.pk)
    
    else:
       print(request.POST)
@@ -45,10 +41,21 @@ def crear_pedido(request, pk):
       pedido = Pedido.objects.get(pk=pedido_id)
       coleccion_id = request.POST.get('coleccion')
       coleccion = Coleccion.objects.get(pk=coleccion_id)
+      producto_id = request.POST.get('producto')
+      producto = Producto.objects.get(pk=producto_id)
+      presentacion_id = request.POST.get('presentacion')
+      presentacion = Presentacion.objects.get(pk=presentacion_id)
+      cantidad = request.POST.get('cantidad')
       item = Items_Pedidos.objects.create(pedido=pedido, 
                                           coleccion=coleccion,
-                                          cantidad=2,
-                                          total_price=Decimal('12.00'))
+                                          producto=producto,
+                                          presentacion=presentacion,
+                                          cantidad=cantidad)
+      item.calc_price()
+      print(f'Precio del producto: {presentacion.precio_mayorista}')
+      print(f'Cantidad: {cantidad}')
+      print(f'Precio Total: {item.total_price}')
+      item.save()
       pedido.calc_price()
       pedido.save()
       

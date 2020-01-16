@@ -1,13 +1,32 @@
 {% extends 'base.html' %}
 {% block content %}
    <h1>Pedido para <a href="{% url 'shop_details' pk=shop.pk %}">{{ shop.nombre }}</a></h1>
+   <table id="tabla">
+      <tr>
+         <th>Nombre</th>
+         <th>Presentación</th>
+         <th>Precio Unitario</th>
+         <th>Cantidad</th>
+         <th>Precio Total</th>
+      </tr>
+      {% for item in pedido.items.all %}
+         <tr>
+            <td>{{ item.producto }}</td>
+            <td>{{ item.presentacion }}</td>
+            <td>${{ item.presentacion.precio_mayorista }}</td>
+            <td>{{ item.cantidad }}</td>
+            <td>${{ item.total_price }}</td>
+         </tr>
+      {% endfor %}
+   </table>
    <form method="POST">
       {% csrf_token %}     
       {{ form.as_p }}
       <p>Total: {{ pedido.total_price }}</p>
       <input type="hidden" name="pedido_id" value={{ pedido.pk }}></input>
       <button type="submit" name="newItem" formaction="#">Agregar productos</button>
-      <button type="submit" name="save" formaction="/pedidos/">Guardar Pedido</button>
+      
       <p>Pedido: {{ pedido.pk }}</p>
    </form>
+   <a href="/pedidos/" ><button>Finalizar Pedido</button></a>
 {% endblock %}

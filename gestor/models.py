@@ -1,5 +1,7 @@
 from django.db import models
 from decimal import Decimal
+from datetime import date
+
 class Cliente(models.Model):
     nombre = models.CharField(max_length=75)
     
@@ -67,20 +69,28 @@ class Items_Pedidos(models.Model):
    total_price = models.DecimalField(max_digits=7, decimal_places=2, default=Decimal('0.00'))
    
    def calc_price(self):
-      self.total_price = self.cantidad * self.presentacion.precio_mayorista
+      self.total_price = Decimal(self.cantidad) * self.presentacion.precio_mayorista
 
 
 class Pedido(models.Model):
    cliente = models.ForeignKey('Cliente', null=True, blank=True, on_delete=models.SET_NULL, related_name="pedidos")
    contacto = models.ForeignKey('Contacto', null=True, blank=True, on_delete=models.SET_NULL, related_name="pedidos")
    total_price = models.DecimalField(max_digits=7, decimal_places=2, default=Decimal('0.00'))
-   
+   fecha_creacion = models.DateField(auto_now_add=True)
+   fecha_entrega = models.DateField(null=True, blank=True)
+   entregado = models.BooleanField(default=False)
+
    def calc_price(self):
       total = 0
       for item in list(self.items.all()):
          total += item.total_price
 
       self.total_price = total
+
+   def entregar(self):
+      fecha_entrega = date.today()
+      entregado = True
+      self.save()
 
 
 
