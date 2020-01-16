@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}{{ shop.nombre }}{% endblock %}
+{% block content %}
+    <h1 class="contact">{{ shop.nombre }}</h1>
+    <h3 class="contact">{{ shop.direccion }} ({{ shop.barrio }})</h3>
+    <div class="contact"><label>Teléfono:</label> {{ shop.telefono_local }}</div>
+    <div class="contact"><label>Email:</label> {{ shop.email }}</div>
+    <div class="contact"><label>Instagram:</label> {{ shop.instagram }}</div>
+    <h1 class="contact">Contactos:</h1>
+    {% for contacto in shop.contactos.all %}
+        <div class="contact"><a href="{% url 'contact_details' pk=contacto.pk %}">{{ contacto.nombre }} ({{ contacto.cargo }})</a></div>
+    {% endfor %}
+    <a href="{% url 'crear_pedido' pk=shop.pk %}" ><button class="content">Crear pedido</button></a>
+    
+{% endblock %}

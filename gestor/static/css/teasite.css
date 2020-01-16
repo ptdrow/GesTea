@@ -3,6 +3,13 @@ h1, h2, h3, h4 {
    text-align: center;
 }
 
+.content{
+	clear: both;
+	margin-top: 75px; 
+	display: block;
+
+}
+
 .contact{
 	text-align: left;
 	margin-left: 10%;

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+   <table id="tabla">
+      <tr>
+         <th>Nombre</th>
+         <th>Colección</th>
+         <th>Presentación</th>
+         <th>Precio Mayorista</th>
+         <th>Precio Sugerido</th>
+      </tr>
+      {% for product in products %}
+         {% for presentacion in product.coleccion.presentaciones.all %}
+            <tr>
+               <td>{{ product.nombre }}</td>
+               <td>{{ product.coleccion }}</td>
+               <td>{{ presentacion.nombre }}</td>
+               <td>${{ presentacion.precio_mayorista }}</td>
+               <td>${{ presentacion.precio_sugerido }}</td>
+            </tr>
+         {% endfor %}
+      {% endfor %}
+   </table>
+{% endblock %}

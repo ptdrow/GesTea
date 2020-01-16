@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
+{% block title %}Contacto{% endblock %}
 {% block content %}
     <h1 class="contact">{{ contact.nombre }}</h1>
-    <h3 class="contact">{{ contact.cargo }} de {{ contact.establecimiento.nombre }}</h3>
+    <h3 class="contact">{{ contact.cargo }} de <a href="{% url 'shop_details' pk=contact.establecimiento.pk %}">{{ contact.establecimiento.nombre }}</a></h3>
     <div class="contact"><label>Teléfono:</label> {{ contact.telefono }}</div>
     <div class="contact"><label>Email:</label> {{ contact.email }}</div>
     <div class="contact"><label>Instagram:</label> {{ contact.instagram }}</div>

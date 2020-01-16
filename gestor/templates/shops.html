@@ -9,7 +9,7 @@
       </tr>
       {% for shop in shops %}
          <tr>
-            <td>{{ shop.nombre }}</td>
+            <td><a href="{% url 'shop_details' pk=shop.pk %}">{{ shop.nombre }}</a></td>
             <td>{{ shop.barrio }}</td>
             <td>{{ shop.direccion }}</td>
             <td>

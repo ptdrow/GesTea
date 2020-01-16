@@ -1,7 +1,7 @@
 {% load static %}
 <html>
     <head>
-        <title>GesTea: Sistema de gestión de té</title>
+        <title>GesTea - {% block title %}Sistema de gestión de té{% endblock %}</title>
         <link rel="stylesheet" href="{% static 'css/teasite.css' %}">
         <link href="//fonts.googleapis.com/css?family=Gayathri" rel="stylesheet" type="text/css">
     </head>
@@ -11,8 +11,8 @@
             <h2>Sistema de gestión</h2>
             <div id="nav-bar">
                 <div id="nav1" class="nav-item"><a href="/clientes/">Clientes</a></div>
-                <div id="nav2" class="nav-item">Productos</div>
-                <div id="nav3" class="nav-item">Pedidos</div>
+                <div id="nav2" class="nav-item"><a href="/productos/">Productos</a></div>
+                <div id="nav3" class="nav-item"><a href="/pedidos/" >Pedidos</a></div>
             </div>
         </div>
         <div>

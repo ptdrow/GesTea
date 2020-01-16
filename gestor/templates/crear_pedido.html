@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+   <h1>Pedido para <a href="{% url 'shop_details' pk=shop.pk %}">{{ shop.nombre }}</a></h1>
+   <form method="POST">
+      {% csrf_token %}     
+      {{ form.as_p }}
+      <p>Total: {{ pedido.total_price }}</p>
+      <input type="hidden" name="pedido_id" value={{ pedido.pk }}></input>
+      <button type="submit" name="newItem" formaction="#">Agregar productos</button>
+      <button type="submit" name="save" formaction="/pedidos/">Guardar Pedido</button>
+      <p>Pedido: {{ pedido.pk }}</p>
+   </form>
+{% endblock %}
