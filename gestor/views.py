@@ -25,6 +25,24 @@ def product_list(request):
    return render(request, 'product_list.html', {'products': products})
 
 def pedidos_list(request):
+   if request.method=="POST":
+      print(request.POST)
+      
+      entregados = list(Pedido.objects.filter(entregado=True).order_by('id').reverse().values_list('id', flat=True))
+      marcados = request.POST.getlist("entregado")
+      marcados = [int(item) for item in marcados]
+            
+      nuevos_entregados = [item for item in marcados if item not in entregados]
+      desmarcados = [item for item in entregados if item not in marcados]
+      
+      for pk in nuevos_entregados:
+         pedido = Pedido.objects.get(pk=pk)
+         pedido.entregar()
+
+      for pk in desmarcados:
+         pedido = Pedido.objects.get(pk=pk)
+         pedido.desentregar()
+
    pedidos = Pedido.objects.all().order_by('id').reverse()
    return render(request, 'pedidos_list.html', {'pedidos': pedidos})
 

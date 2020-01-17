@@ -1,16 +1,33 @@
 {% extends 'base.html' %}
 {% block title%} Pedidos {% endblock%}
 {% block content %}
-   <table id="tabla">
-      <tr>
-         <th>Cliente</th>
-         <th>Monto</th>
-      </tr>
-      {% for pedido in pedidos %}
+   <form method="POST" action="#">
+      {% csrf_token %}
+      <button type=submit name="guardar">Guardar</button>
+      <table id="tabla">
          <tr>
-            <td>{{ pedido.cliente.nombre }}</td>
-            <td>${{ pedido.total_price }}</td>
+            <th>Cliente</th>
+            <th>Fecha</th>
+            <th>Monto</th>
+            <th>Entregado</th>
          </tr>
-      {% endfor %}
-   </table>
+         {% for pedido in pedidos %}
+            {% if pedido.entregado == True %}
+               <tr>
+                  <td class="done">{{ pedido.cliente.nombre }}</td>
+                  <td class="done">{{ pedido.fecha_creacion }}</td>
+                  <td class="done">${{ pedido.total_price }}</td>
+                  <td><input type="checkbox" name="entregado" value={{ pedido.pk }} checked /> {{ pedido.fecha_entrega }}</td>
+                </tr>
+             {% else %}
+                <tr>
+                   <td>{{ pedido.cliente.nombre }}</td>
+                   <td>{{ pedido.fecha_creacion }}</td>
+                   <td>${{ pedido.total_price }}</td>
+                   <td><input type="checkbox" name="entregado" value={{ pedido.pk }} /></td>
+                </tr>
+             {% endif %}
+         {% endfor %}
+      </table>
+   </form>
 {% endblock %}

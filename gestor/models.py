@@ -88,8 +88,13 @@ class Pedido(models.Model):
       self.total_price = total
 
    def entregar(self):
-      fecha_entrega = date.today()
-      entregado = True
+      self.fecha_entrega = date.today()
+      self.entregado = True
+      self.save()
+
+   def desentregar(self):
+      self.fecha_entrega = None
+      self.entregado = False
       self.save()
 
 
