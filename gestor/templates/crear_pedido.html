@@ -22,8 +22,13 @@
    <form method="POST">
       {% csrf_token %}     
       {% for field in form %}
-         <p><label id="l_{{ field.name }}" for="{{ field.name }}">{{ field.label }}</label>
-         {{ field }}</p>
+         {% if field.field.widget.attrs.class == 'coleccion_drop' %}
+            <p><label id="l_{{ field.name }}" for="{{ field.name }}" class="coleccion_drop">{{ field.label }}</label>
+            {{ field }}</p>
+         {% else %}         
+            <p><label>{{ field.label }}</label>
+            {{ field }}</p>
+         {% endif %}
       {% endfor %}
       <p>Total: {{ pedido.total_price }}</p>
       <input type="hidden" name="pedido_id" value={{ pedido.pk }}></input>
@@ -39,8 +44,8 @@
          var f = document.getElementById(str1);
          var f_id = f.options[f.selectedIndex].value;
          document.getElementById(str1.concat(f_id)).disabled = false;
-         document.getElementById(str1.concat(f_id)).style.display = "none";
-         document.getElementById(str2.concat(f_id)).style.display = "none";
+         document.getElementById(str1.concat(f_id)).style.display = "inline-block";
+         document.getElementById(str2.concat(f_id)).style.display = "inline-block";
       }
    </script>
 {% endblock %}

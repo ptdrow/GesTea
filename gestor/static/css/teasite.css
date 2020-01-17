@@ -64,3 +64,7 @@ th, td {
 .done {
 	text-decoration: line-through;
 }
+
+.coleccion_drop {
+	display: none;
+}
