@@ -59,7 +59,7 @@ def crear_pedido(request, pk):
       pedido = Pedido.objects.get(pk=pedido_id)
       coleccion_id = request.POST.get('coleccion')
       coleccion = Coleccion.objects.get(pk=coleccion_id)
-      producto_id = request.POST.get('producto')
+      producto_id = request.POST.get('coleccion'+str(coleccion_id))
       producto = Producto.objects.get(pk=producto_id)
       presentacion_id = request.POST.get('presentacion')
       presentacion = Presentacion.objects.get(pk=presentacion_id)

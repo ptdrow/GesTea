@@ -65,6 +65,6 @@ th, td {
 	text-decoration: line-through;
 }
 
-.coleccion_drop {
+.coleccion_drop, .coleccion_drop_label {
 	display: none;
 }

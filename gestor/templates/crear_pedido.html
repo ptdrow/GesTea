@@ -23,7 +23,7 @@
       {% csrf_token %}     
       {% for field in form %}
          {% if field.field.widget.attrs.class == 'coleccion_drop' %}
-            <p><label id="l_{{ field.name }}" for="{{ field.name }}" class="coleccion_drop">{{ field.label }}</label>
+            <p><label id="l_{{ field.name }}" for="{{ field.name }}" class="coleccion_drop_label">{{ field.label }}</label>
             {{ field }}</p>
          {% else %}         
             <p><label>{{ field.label }}</label>
@@ -46,6 +46,18 @@
          document.getElementById(str1.concat(f_id)).disabled = false;
          document.getElementById(str1.concat(f_id)).style.display = "inline-block";
          document.getElementById(str2.concat(f_id)).style.display = "inline-block";
+      }
+      function disable_all() {
+         var f = document.getElementsByClassName('coleccion_drop');
+         for (let x of f) {
+            var str1 = x.id
+            document.getElementById(str1).disabled = true;
+            document.getElementById(str1).style.display = "none";
+            var str2 = str1.replace("id", "l");
+            document.getElementById(str2).style.display = "none";
+            
+         }
+         myFunction()
       }
    </script>
 {% endblock %}
