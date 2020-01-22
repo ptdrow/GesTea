@@ -73,6 +73,6 @@ th, td {
 	text-decoration: line-through;
 }
 
-.coleccion_drop, .coleccion_drop_label {
+.coleccion_drop, .coleccion_drop_label, .presentacion_drop, .presentacion_drop_label{
 	display: none;
 }

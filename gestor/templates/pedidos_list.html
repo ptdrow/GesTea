@@ -6,6 +6,7 @@
       <button type=submit name="guardar">Guardar</button>
       <table id="tabla">
          <tr>
+            <th>Borrar</th>
             <th>Cliente</th>
             <th>Fecha</th>
             <th>Monto</th>
@@ -14,15 +15,17 @@
          {% for pedido in pedidos %}
             {% if pedido.entregado == True %}
                <tr>
+                  <td><input type="checkbox" name="borrar" value={{ pedido.pk }} /></td>
                   <td class="done">{{ pedido.cliente.nombre }}</td>
-                  <td class="done">{{ pedido.fecha_creacion }}</td>
+                  <td class="done">{{ pedido.fecha_creacion|date:"d-m-Y" }}</td>
                   <td class="done">${{ pedido.total_price }}</td>
-                  <td><input type="checkbox" name="entregado" value={{ pedido.pk }} checked /> {{ pedido.fecha_entrega }}</td>
+                  <td><input type="checkbox" name="entregado" value={{ pedido.pk }} checked /> {{ pedido.fecha_entrega|date:"d-m-Y" }}</td>
                 </tr>
              {% else %}
                 <tr>
+                   <td><input type="checkbox" name="borrar" value={{ pedido.pk }} /></td>
                    <td>{{ pedido.cliente.nombre }}</td>
-                   <td>{{ pedido.fecha_creacion }}</td>
+                   <td>{{ pedido.fecha_creacion|date:"d-m-Y" }}</td>
                    <td>${{ pedido.total_price }}</td>
                    <td><input type="checkbox" name="entregado" value={{ pedido.pk }} /></td>
                 </tr>

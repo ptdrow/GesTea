@@ -6,7 +6,6 @@ class PedidosForm(forms.Form):
    coleccion = forms.ModelChoiceField(label="Colección",queryset=Coleccion.objects.all(),
                                       #widget = forms.Select(attrs = {'onchange' : "myFunction();"}))
                                       widget = forms.Select(attrs = {'onchange' : "disable_all();"}))
-   #producto = forms.ModelChoiceField(label="Producto",queryset=Producto.objects.all())
    
    
    def __init__(self, *args, **kwargs):
