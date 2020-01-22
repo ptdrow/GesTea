@@ -1,5 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
+   <div><div class="filtro">
+      <form method="POST">
+         {% csrf_token %}     
+         {{ form }}
+         <button type="submit" name="filtro" formaction="#">Filtrar</button>
+      </form>
+   </div></div>
    <table id="tabla">
       <tr>
          <th>Nombre</th>

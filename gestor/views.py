@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Cliente, Coleccion, Contacto, Pedido, Presentacion, Producto, Items_Pedidos
 from django.http import HttpResponse
-from .forms import PedidosForm
+from .forms import PedidosForm, BarriosForm
 from decimal import Decimal
 
 
@@ -9,8 +9,17 @@ def homepage(request):
    return render(request, 'homepage.html', {})
 
 def shop_list(request):
-   shops = Cliente.objects.all().order_by('barrio')
-   return render(request, 'shops.html', {'shops': shops})
+   if request.method=="GET":
+      shops = Cliente.objects.all().order_by('barrio')
+   else:
+      print(request.POST)
+      barrio = request.POST.get('barrio')
+      if barrio == 'Todos':
+         shops = Cliente.objects.all().order_by('barrio')
+      else:
+         shops = Cliente.objects.filter(barrio=barrio).order_by('nombre')
+   form = BarriosForm()
+   return render(request, 'shops.html', {'form':form, 'shops': shops})
 
 def contact_details(request, pk):
    contact = get_object_or_404(Contacto, pk=pk)
@@ -54,7 +63,6 @@ def crear_pedido(request, pk):
       pedido.save()
    
    else:
-      print(request.POST)
       pedido_id = request.POST.get('pedido_id')
       pedido = Pedido.objects.get(pk=pedido_id)
       coleccion_id = request.POST.get('coleccion')
@@ -70,9 +78,6 @@ def crear_pedido(request, pk):
                                           presentacion=presentacion,
                                           cantidad=cantidad)
       item.calc_price()
-      print(f'Precio del producto: {presentacion.precio_mayorista}')
-      print(f'Cantidad: {cantidad}')
-      print(f'Precio Total: {item.total_price}')
       item.save()
       pedido.calc_price()
       pedido.save()

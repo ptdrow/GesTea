@@ -5,7 +5,8 @@ h1, h2, h3, h4 {
 
 .content{
 	clear: both;
-	margin-top: 75px; 
+	width: 100%;
+	margin-top: 70px;
 	display: block;
 
 }
@@ -15,6 +16,12 @@ h1, h2, h3, h4 {
 	margin-left: 10%;
 }
 
+.filtro {
+	padding-top: 50px;
+   width: 50%;
+   margin: 0 auto;
+}
+   
 h1.contact {
 	margin-top: 75px;
 	margin-bottom: 0px;
@@ -34,9 +41,10 @@ div.contact {
 }
 
 #nav-bar {
-   padding-left: 25%;
-   padding-right: 25%;
-   min-width: 350px;
+	width: 70%;
+	margin-left: 15%;
+	margin-right: 15%;
+   min-width: 300px;
 }
 .nav-item {
    margin-left: 5%;
@@ -48,7 +56,7 @@ div.contact {
 }
 
 table {
-	margin-top: 60px;
+	margin-top: 30px;
 	width: 100%;
 	padding-left: 15%;
    padding-right: 15%;

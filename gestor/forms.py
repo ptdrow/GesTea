@@ -23,4 +23,8 @@ class PedidosForm(forms.Form):
         self.fields['presentacion'] = forms.ModelChoiceField(label="Presentación", queryset=Presentacion.objects.all())
         self.fields['cantidad'] = forms.IntegerField(label="Cantidad",min_value=1)
 
+class BarriosForm(forms.Form):
+   choices = [("Todos","Todos"), ("Balvanera","Balvanera"), ("Palermo","Palermo")]
+   barrio = forms.ChoiceField(choices=choices)
+
 
