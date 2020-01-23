@@ -3,6 +3,9 @@ from .models import Cliente, Coleccion, Contacto, Pedido, Presentacion, Producto
 from django.http import HttpResponse
 from .forms import PedidosForm, BarriosForm
 from decimal import Decimal
+from plotly.offline import plot
+import plotly.graph_objs as go
+from django.db.models import Sum
 
 
 def homepage(request):
@@ -96,5 +99,20 @@ def crear_pedido(request, pk):
       
    form = PedidosForm()
    return render(request, 'crear_pedido.html', {'form': form, 'shop': shop, 'pedido':pedido})
-   
 
+def analytics(request):
+   w_data = Pedido.objects.all().values('fecha_creacion').annotate(data_sum=Sum('total_price')).order_by()
+   fechas = []
+   montos = []
+   for day in w_data:
+      fechas.append(day['fecha_creacion'])
+      montos.append(day['data_sum'])
+   fig = go.Figure()
+   scatter = go.Scatter(x=fechas, y=montos,
+                            mode='lines', name='test',
+                            opacity=0.8, marker_color='green')
+   fig.add_trace(scatter)
+   fig.update_layout(xaxis_tickformat = '%Y-%m-%d')
+   plot_div = plot(fig,output_type='div',include_plotlyjs=False)
+   
+   return render(request, 'analytics.html', {'plotly': plot_div})

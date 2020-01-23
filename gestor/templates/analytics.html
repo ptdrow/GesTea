@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block analytics %}<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>{% endblock %}
+{% block title %}Analytics{% endblock %}
+{% block content %}
+  <h1>Ventas</h1>
+   {% autoescape off %}
+       {{ plotly }}
+   {% endautoescape %}
+{% endblock %}

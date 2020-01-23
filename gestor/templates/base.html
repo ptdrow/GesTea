@@ -4,6 +4,7 @@
         <title>GesTea - {% block title %}Sistema de gestión de té{% endblock %}</title>
         <link rel="stylesheet" href="{% static 'css/teasite.css' %}">
         <link href="//fonts.googleapis.com/css?family=Gayathri" rel="stylesheet" type="text/css">
+        {% block analytics %}{% endblock %}
     </head>
     <body>
         <div class="page-header">
@@ -13,6 +14,7 @@
                 <div id="nav1" class="nav-item"><a href="/clientes/">Clientes</a></div>
                 <div id="nav2" class="nav-item"><a href="/productos/">Productos</a></div>
                 <div id="nav3" class="nav-item"><a href="/pedidos/" >Pedidos</a></div>
+                <div id="nav4" class="nav-item"><a href="/analytics/" >Analytics</a></div>
             </div>
         </div>
         <div>
